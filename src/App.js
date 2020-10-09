@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext, useEffect } from 'react';
+import { connect } from 'react-redux';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { initStore, saveStoreOnAppDown } from './redux/actions/items';
+import MainContainer from './MainContainer';
+import CustomThemeProvider from './themes/CustomThemeProvider';
 
-function App() {
+const App = (props) => {
+  const { loading, initStore, saveStoreOnAppDown } = props;
+
+  useEffect(() => {
+    initStore();
+    window.addEventListener('beforeunload', saveStoreOnAppDown);
+
+    return () => window.removeEventListener('beforeunload', saveStoreOnAppDown);
+  });
+
+  if (loading) return <CircularProgress color="secondary" />;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CustomThemeProvider>
+      <CssBaseline />
+      <MainContainer />
+    </CustomThemeProvider>
   );
-}
+};
 
-export default App;
+const mapStateToProps = (state) => ({
+  loading: state.books.loading,
+});
+
+export default connect(mapStateToProps, { initStore, saveStoreOnAppDown })(App);

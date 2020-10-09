@@ -1,0 +1,9 @@
+export const SET_ALL_BOOKS = 'SET_ALL_BOOKS';
+export const SET_ALL_STORE = 'SET_ALL_STORE';
+export const SET_ACTIVE_BOOK = 'SET_ACTIVE_BOOK';
+
+export const CREATE_SHELF = 'CREATE_SHELF';
+export const ADD_BOOK_TO_SHELF = 'ADD_BOOK_TO_SHELF';
+
+export const SET_BOOK_RATING = 'SET_BOOK_RATING';
+export const SET_SHELF_RATING = 'SET_SHELF_RATING';
