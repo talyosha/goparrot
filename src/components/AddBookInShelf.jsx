@@ -12,13 +12,6 @@ import AddIcon from '@material-ui/icons/Add';
 import { blue } from '@material-ui/core/colors';
 import { addBookToShelf } from '../redux/actions/items';
 
-const useStyles = makeStyles({
-  avatar: {
-    backgroundColor: blue[100],
-    color: blue[600],
-  },
-});
-
 const AddBookInShelf = (props) => {
   const classes = useStyles();
   const { onClose, open, book, shelves, addBookToShelf } = props;
@@ -35,6 +28,7 @@ const AddBookInShelf = (props) => {
     <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open}>
       <DialogTitle id="simple-dialog-title">Select shelf to add book '{title}'</DialogTitle>
       <List>
+        {shelves.length === 0 && <p>First you need to create one shell with specific category</p>}
         {shelves.map((shelf) => (
           <ListItem
             disabled={shelf.categoryId !== book.categoryId}

@@ -61,8 +61,6 @@ export default (state = initialState, action) => {
       };
 
     case SET_SHELF_RATING:
-      console.log('shelf', action);
-
       return {
         ...state,
         shelves: state.shelves.map((shelf) => (shelf.id === action.id ? { ...shelf, rating: action.value } : shelf)),
